@@ -1,0 +1,35 @@
+{
+  "name": "apiproductos",
+  "version": "1.0.0",
+  "description": "Esta api es poder registrar la cantidad de producto que se necesite comprar y mostrar la lista",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PabloSan1997/ApiProductos.git"
+  },
+  "keywords": [
+    "api",
+    "node",
+    "express",
+    "mongodb",
+    "javascript"
+  ],
+  "author": "Pablo Santillana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PabloSan1997/ApiProductos/issues"
+  },
+  "homepage": "https://github.com/PabloSan1997/ApiProductos#readme",
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "joi": "^17.9.1"
+  }
+}
