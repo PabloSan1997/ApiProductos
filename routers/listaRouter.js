@@ -1,8 +1,9 @@
 const express = require("express");
+const { Lista } = require("../dataBase/schema");
 const { validatorHandler } = require("../middlewares/joiHandle");
 const { crearLista } = require("../schemas/listaSchema");
-const { ListaServicio } = require("../services/listaService");
-const servicio = new ListaServicio();
+const { ServicioProducto } = require("../services/servicioProducto");
+const servicio = new ServicioProducto(Lista);
 const lista = express.Router();
 
 lista.get("/", async (req, res, next) => {

@@ -1,10 +1,12 @@
 const express = require("express");
+const { Conteo } = require("../dataBase/schema");
 const { validatorHandler } = require("../middlewares/joiHandle");
 const { agregarConteo, editarConteo } = require("../schemas/conteoScemas");
-const { ConteoServicios } = require("../services/conteoService");
+const { ServicioProducto } = require("../services/servicioProducto");
+
 
 const conteo = express.Router();
-const servicios = new ConteoServicios();
+const servicios = new ServicioProducto(Conteo);
 
 conteo.get("/", async (req, res, next) => {
   try {

@@ -1,10 +1,13 @@
 const boom = require("@hapi/boom");
-const { Lista } = require("../dataBase/schema");
 
-class ListaServicio {
+
+class ServicioProducto {
+  constructor(Clase){
+    this.Clase=Clase
+  }
   async leer() {
     try {
-      const datos = await Lista.find();
+      const datos = await this.Clase.find();
       if (datos.length === 0) {
         throw "No se encontraron elementos";
       }
@@ -15,7 +18,7 @@ class ListaServicio {
   }
   async leerUno(id) {
     try {
-      const datos = await Lista.findOne({ _id: id });
+      const datos = await this.Clase.findOne({ _id: id });
       if (datos.length === 0) {
         throw "No se encontraró elemento";
       }
@@ -26,11 +29,11 @@ class ListaServicio {
   }
   async agregar(body) {
     try {
-      const ver = await Lista.findOne({ nombre: body.nombre });
+      const ver = await this.Clase.findOne({ nombre: body.nombre });
       if (!!ver) {
         throw "Nombre repetido";
       }
-      const datos = await Lista.create(body);
+      const datos = await this.Clase.create(body);
       return datos;
     } catch (error) {
       throw boom.badRequest(error);
@@ -38,11 +41,11 @@ class ListaServicio {
   }
   async editarUno(id, cuerpo) {
     try {
-      const ver = await Lista.findOne({nombre:cuerpo.nombre});
+      const ver = await this.Clase.findOne({nombre:cuerpo.nombre});
       if(!!ver){
         throw "Nombre repetido";
       }
-      const dato = await Lista.findOneAndUpdate({_id:id}, cuerpo);
+      const dato = await this.Clase.findOneAndUpdate({_id:id}, cuerpo);
       if(!dato){
         throw "No se puede editar ese elemento"
       }
@@ -53,7 +56,7 @@ class ListaServicio {
   }
   async borrarUno(id){
     try {
-        const dato = await Lista.findOneAndDelete({_id:id});
+        const dato = await this.Clase.findOneAndDelete({_id:id});
         if(!dato){
           throw "No se puede eliminar ese elemento"
         }
@@ -64,7 +67,7 @@ class ListaServicio {
   }
   async borrarTodo(){
     try {
-        const datos = await Lista.deleteMany({});
+        const datos = await this.Clase.deleteMany({});
         return datos;
       } catch (error) {
         throw boom.badRequest(error);
@@ -73,5 +76,5 @@ class ListaServicio {
 }
 
 module.exports = {
-  ListaServicio,
+  ServicioProducto,
 };
