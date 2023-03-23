@@ -13,7 +13,10 @@ const listaS = new Schema({
     precio:Number,
     cantidad:Number
 }); 
-
+const usuarioL = new Schema({
+    body:String
+});
 const Conteo = Mongoose.model("Conteo", conteoS);
-const Lista = Mongoose.model("ListaComprar", listaS)
-module.exports={Conteo, Lista}
+const Lista = Mongoose.model("ListaComprar", listaS);
+const Contra = Mongoose.model("Usuario", usuarioL);
+module.exports={Conteo, Lista, Contra}
