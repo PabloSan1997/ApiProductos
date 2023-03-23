@@ -1,7 +1,8 @@
 const express = require("express");
 const { Lista } = require("../dataBase/schema");
 const { validatorHandler } = require("../middlewares/joiHandle");
-const { crearLista } = require("../schemas/listaSchema");
+const { mostrar } = require("../results/main");
+const { crearLista, editarLista } = require("../schemas/listaSchema");
 const { ServicioProducto } = require("../services/servicioProducto");
 const servicio = new ServicioProducto(Lista);
 const lista = express.Router();
@@ -9,7 +10,7 @@ const lista = express.Router();
 lista.get("/", async (req, res, next) => {
   try {
     const hola = await servicio.leer();
-    res.json(hola);
+    mostrar(res, 200, hola);
   } catch (error) {
     next(error);
   }
@@ -18,7 +19,7 @@ lista.get("/", async (req, res, next) => {
 lista.get("/:id", async (req, res, next) => {
   try {
     const hola = await servicio.leerUno(req.params.id);
-    res.json(hola);
+    mostrar(res, 200, hola);
   } catch (error) {
     next(error);
   }
@@ -30,16 +31,24 @@ lista.post(
   async (req, res, next) => {
     try {
       const hola = await servicio.agregar(req.body);
-      res.json(hola);
+      mostrar(res, 201, hola);
     } catch (error) {
       next(error);
     }
   }
 );
+lista.patch("/:id",validatorHandler(editarLista, "body"), async(req, res, next)=>{
+  try {
+      const dato = await servicio.editarUno(req.params.id, req.body);
+      mostrar(res, 201, dato);
+  } catch (error) {
+      next(error);
+  }
+});
 lista.delete("/borrarTodo", async (req, res, next)=>{
     try {
         const dato = await servicio.borrarTodo();
-        res.json(dato);
+        mostrar(res, 201, dato);
     } catch (error) {
         next(error);
     }
@@ -48,7 +57,7 @@ lista.delete("/borrarTodo", async (req, res, next)=>{
 lista.delete("/:id", async (req, res, next)=>{
     try {
         const dato = await servicio.borrarUno(req.params.id);
-        res.json(dato);
+        mostrar(res, 200, dato);
     } catch (error) {
         next(error);
     }

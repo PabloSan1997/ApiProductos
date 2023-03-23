@@ -1,6 +1,7 @@
 const boom = require("@hapi/boom");
 
 
+
 class ServicioProducto {
   constructor(Clase){
     this.Clase=Clase
@@ -34,7 +35,7 @@ class ServicioProducto {
         throw "Nombre repetido";
       }
       const datos = await this.Clase.create(body);
-      return datos;
+      return {...body,message:"Elemento agregado con exito"};
     } catch (error) {
       throw boom.badRequest(error);
     }
@@ -49,7 +50,7 @@ class ServicioProducto {
       if(!dato){
         throw "No se puede editar ese elemento"
       }
-      return dato;
+      return {...cuerpo, message:"Elemento cambiado con exito"};
     } catch (error) {
       throw boom.badRequest(error);
     }
@@ -60,7 +61,7 @@ class ServicioProducto {
         if(!dato){
           throw "No se puede eliminar ese elemento"
         }
-        return dato;
+        return {id,message:"elemento borrado con exito"};
       } catch (error) {
         throw boom.badRequest(error);
       }
@@ -68,7 +69,7 @@ class ServicioProducto {
   async borrarTodo(){
     try {
         const datos = await this.Clase.deleteMany({});
-        return datos;
+        return {message:"Todos los elementos se borraron"};
       } catch (error) {
         throw boom.badRequest(error);
       }
