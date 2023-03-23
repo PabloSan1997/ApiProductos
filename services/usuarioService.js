@@ -2,11 +2,13 @@ const crypt = require("bcrypt");
 const boom = require("@hapi/boom");
 const { Contra } = require("../dataBase/schema");
 const jwt = require('jsonwebtoken');
+const { informacion } = require("../dataBase/info");
+
 module.exports=class ServicioUsuario{
     async permiso(cuerpo){
         try {
             const ver = await Contra.find();
-            const hola = jwt.verify(ver[0].body, "pacobobo");
+            const hola = jwt.verify(ver[0].body, informacion.COMBINAR);
             console.log(hola);
             const cont = await crypt.compare(cuerpo.contra, hola.contra);
             const aver= hola.usuario===cuerpo.usuario && cont;
@@ -18,7 +20,7 @@ module.exports=class ServicioUsuario{
                 usuario:"Familia",
                 contra:encriptar
             }
-            const cambiar = jwt.sign(objeto,"pacobobo");
+            const cambiar = jwt.sign(objeto,informacion.COMBINAR);
             const borrar = await Contra.deleteMany({});
             const mandar = await Contra.create({body:cambiar});
             return {state:true};
