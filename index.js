@@ -17,7 +17,7 @@ app.get("/", (req, res)=>{
     res.json({message:"Estas conectado 😀"})
 })
 
-app.listen(PUERTO, ()=>{
-    console.log(`http://localhost:${PUERTO}/`)
-});
-// app.listen(PUERTO);
+// app.listen(PUERTO, ()=>{
+//     console.log(`http://localhost:${PUERTO}/`)
+// });
+app.listen(PUERTO);
