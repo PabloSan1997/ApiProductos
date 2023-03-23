@@ -9,11 +9,10 @@ module.exports=class ServicioUsuario{
         try {
             const ver = await Contra.find();
             const hola = jwt.verify(ver[0].body, informacion.COMBINAR);
-            console.log(hola);
             const cont = await crypt.compare(cuerpo.contra, hola.contra);
             const aver= hola.usuario===cuerpo.usuario && cont;
             if(!aver){
-                throw "No se puede entrar";
+                throw "Contraseña o Usuario incorrectos";
             }
             const encriptar = await crypt.hash(cuerpo.contra, 8);
             const objeto = {
@@ -25,7 +24,7 @@ module.exports=class ServicioUsuario{
             const mandar = await Contra.create({body:cambiar});
             return {state:true};
         } catch (error) {
-            throw boom.badRequest(error);
+            throw {ver:true, message:error};
         }
     }
 }

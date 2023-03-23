@@ -20,7 +20,7 @@ class ServicioProducto {
   async leerUno(id) {
     try {
       const datos = await this.Clase.findOne({ _id: id });
-      if (datos.length === 0) {
+      if (!datos) {
         throw "No se encontraró elemento";
       }
       return datos;
