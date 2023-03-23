@@ -38,6 +38,10 @@ class ConteoServicios {
   }
   async editarUno(id, cuerpo) {
     try {
+      const ver = await Conteo.findOne({nombre:cuerpo.nombre});
+      if(!!ver){
+        throw "Nombre repetido";
+      }
       const dato = await Conteo.findOneAndUpdate({_id:id}, cuerpo);
       if(!dato){
         throw "No se puede editar ese elemento"

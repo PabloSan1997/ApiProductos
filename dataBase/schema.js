@@ -8,6 +8,12 @@ const conteoS = new Schema({
     tomar:Number
 })
 
-const Conteo = Mongoose.model("Conteo", conteoS);
+const listaS = new Schema({
+    nombre:String,
+    precio:Number,
+    cantidad:Number
+}); 
 
-module.exports={Conteo}
+const Conteo = Mongoose.model("Conteo", conteoS);
+const Lista = Mongoose.model("ListaComprar", listaS)
+module.exports={Conteo, Lista}
