@@ -1,17 +1,22 @@
 const express = require("express");
-const { validatorHandler } = require("../middlewares/joiHandle");
-const { checarUsuario } = require("../schemas/usuarioSchema");
 const ServicioUsuario = require("../services/usuarioService");
 const usuario = express.Router();
 const servicio = new ServicioUsuario();
 
-usuario.post("/",validatorHandler(checarUsuario, "body") ,async(req, res, next)=>{
+usuario.post("/" ,async(req, res, next)=>{
    try {
     const datos = await servicio.permiso(req.body);
-    res.json(datos);
+    res.json({message:datos});
    } catch (error) {
         next(error);
    }
 });
-
+usuario.get("/:aver",async(req, res, next)=>{
+   try {
+      const datos = await servicio.abrir(req.params.aver);
+      res.json({estado:datos});
+     } catch (error) {
+      res.json({estado:false});
+     }
+});
 module.exports={usuario}
