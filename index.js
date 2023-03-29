@@ -8,14 +8,19 @@ const { errorUsuario } = require("./middlewares/usuarioHandle");
 const PUERTO = process.env.PORT || 3001;
 
 app.use(express.json());
-app.use(cors());
+const whiteList = [
+  "http://conteoproducto.surge.sh",
+  "http://conteoproducto.surge.sh/#/conteo",
+  "http://conteoproducto.surge.sh/#/lista",
+];
+app.use(cors({origin:whiteList}));
 conectar();
 crearApi(app);
 app.use(boomHandle);
 app.use(errorUsuario);
-app.get("/", (req, res)=>{
-    res.json({message:"Estas conectado 😀"})
-})
+app.get("/", (req, res) => {
+  res.json({ message: "Estas conectado 😀" });
+});
 
 // app.listen(PUERTO, ()=>{
 //     console.log(`http://localhost:${PUERTO}/`)
