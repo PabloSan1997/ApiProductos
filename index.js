@@ -9,9 +9,9 @@ const PUERTO = process.env.PORT || 3001;
 
 app.use(express.json());
 const whiteList = [
-  "http://conteoproducto.surge.sh",
-  "http://conteoproducto.surge.sh/#/conteo",
-  "http://conteoproducto.surge.sh/#/lista",
+  "https://productoconteo.onrender.com",
+  "https://productoconteo.onrender.com/#/conteo",
+  "https://productoconteo.onrender.com/#/lista",
 ];
 app.use(cors({origin:whiteList}));
 conectar();
